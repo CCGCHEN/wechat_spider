@@ -1,6 +1,6 @@
 # wechat_spider 微信爬虫
 
-基于 Node.js 的微信爬虫，通过中间人代理的原理，批量获取微信文章数据，包括阅读量、点赞量、在看数、评论和文章正文等数据。
+基于 Node.js 的微信爬虫，通过中间人代理的原理，批量获取微信文章数据，包括阅读量、点赞量、在看数、评论和文章正文等数据，并且支持根据阅读数量进行排序
 
 使用代理模块 AnyProxy。代码已支持 AnyProxy 4 版本。
 
@@ -24,7 +24,7 @@ cd wechat_spider
 npm install
 ```
 
-本项目基于代理模块 AnyProxy，解析微信 HTTPS 请求需在电脑和手机上都安装证书。可参考：[AnyProxy 文档](http://anyproxy.io/cn/#%E8%AF%81%E4%B9%A6%E9%85%8D%E7%BD%AE)。
+本项目基于代理模块 AnyProxy，解析微信 HTTPS 请求需在电脑和手机上都安装证书。可参考：https://blog.csdn.net/chencangui/article/details/133976042?spm=1001.2014.3001.5501
 
 ### 通过 Docker 部署
 
@@ -44,6 +44,11 @@ docker-compose down
 - 可编辑 `Dockerfile` 和 `docker-compose.yml` 改变部署规则
 
 ## 使用
+```
+1、开启anyproxy: anyproxy -i
+2、开启redis：redis-server.exe
+3、打开mongodb
+```
 
 ```bash
 cd wechat_spider
@@ -65,6 +70,14 @@ var biz = 'MzI4NjQyMTM2Mw==';
 var history_page = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=' + biz + '&scene=124#wechat_redirect';
 // https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4NjQyMTM2Mw==&scene=124#wechat_redirect
 ```
+上面的 biz 的获取方式如下：
+第一步，从你需要采集的公众号里面随便找一篇文章，然后用浏览器打开，打开有右击鼠标，选择查看网页源码，
+
+第二步，打开源码后，按 Ctrl+F 搜索关键词 __biz= 查看第一个搜索结果，如下图的这一行
+
+__biz=后面的一直到&符号结束的字符串复制一下就是了。最后替换上面的 biz 就可以了。
+
+再将后面这个链接复制发送给文件传输助手，打开就能看到历史消息界面了
 
 2. 进入微信文章页面先刷新一下
 
@@ -123,7 +136,7 @@ mongoexport --db wechat_spider --collection posts --type=csv --fields title,link
 赞助时可备注来源 wechat spider，我会将你添加至下面的赞助列表中。
 
 <div align="center">
-	<img alt="sponsorme" src="./imgs/sponsor-me.jpeg" style="width: 300px" />
+	<img alt="sponsorme" src="./imgs/sponsor-me.jpg" style="width: 300px" />
 </div>
 
 感谢以下赞助者：

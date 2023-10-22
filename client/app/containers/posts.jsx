@@ -165,7 +165,7 @@ class Posts extends React.Component {
               <th>发布时间 {this.sortByTime('publishAt')}</th>
               <th>文章标题</th>
               <th>位置</th>
-              <th>阅读数</th>
+              <th>阅读数 {this.sortByTime('readNum')}</th>
               <th>点赞数</th>
               <th>更新时间 {this.sortByTime('updateNumAt')}</th>
               <th>间隔</th>

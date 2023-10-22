@@ -58,6 +58,12 @@ api.get('/posts', wrap(async (req, res) => {
 
   let sortWayResult;
   switch (sortWay) {
+    case '-readNum':
+      sortWayResult = { readNum: -1 };
+      break;
+    case 'readNum':
+      sortWayResult = { readNum: 1 };
+      break;
     case '-updateNumAt':
       sortWayResult = { updateNumAt: -1 };
       break;
